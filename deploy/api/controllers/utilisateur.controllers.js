@@ -4,12 +4,8 @@ const { ACCESS_TOKEN_SECRET }  = require ("../config.js");
 const jwt = require('jsonwebtoken');
 
 function generateAccessToken(user) {
-    return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '1800s' });
+    return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '365d' });
   }
-
-const db = require("../models");
-const Utilisateur = db.utilisateur;
-const Op = db.Sequelize.Op;
 
 // Find a single Utilisateur with an login
 exports.login = (req, res) => {
@@ -21,34 +17,32 @@ exports.login = (req, res) => {
   // Test
   let pattern = /^[A-Za-z0-9]{1,20}$/;
   if (pattern.test(utilisateur.login) && pattern.test(utilisateur.password)) {
-     Utilisateur.findOne({ where: { login: utilisateur.login } })
-    .then(data => {
-      if (data) {
+
+        const uuid = uuidv4 ();
+        const utilisateur = {
+          nom: "martin",
+          prenom: "jean",
+          login: "martin",
+          email : "martin.jean@gmail.com",
+          password : "toto",
+          id : uuid
+        };
+
         const user = {
-          id: data.id,
-          name: data.nom,
-          email: data.email
+          id: utilisateur.id,
+          name: utilisateur.nom,
+          email: utilisateur.email
         };
       
+        
         let accessToken = generateAccessToken(user);
         res.setHeader('Authorization', `Bearer ${accessToken}`);
-        res.send(data);
-      } else {
-        res.status(404).send({
-          message: `Cannot find Utilisateur with login=${utilisateur.login}.`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(400).send({
-        message: "Error retrieving Utilisateur with login=" + utilisateur.login
-      });
-    });
-  } else {
-    res.status(400).send({
-      message: "Login ou password incorrect" 
-    });
-  }
+
+        console.log (accessToken);
+
+      
+        res.send(utilisateur);
+    };    
 };
 
 exports.create = (req, res) => {
@@ -70,129 +64,110 @@ exports.create = (req, res) => {
       password : req.body.password,
       id : uuid
     };
-  
-  
-    const accessToken = generateAccessToken(utilisateur);
+   
+    const user = {
+      id: utilisateur.id,
+      name: utilisateur.nom,
+      email: utilisateur.email
+    };
 
-    console.log (accessToken)
-    // Save Utilisateur in the database
-    Utilisateur.create(utilisateur)
-      .then(data => {
-        res.setHeader('Authorization', `Bearer ${accessToken}`);
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the Utilisateur."
-        });
-      });
+    const accessToken = generateAccessToken(user);
+          
+    res.setHeader('Authorization', `Bearer ${accessToken}`);
+    res.send(utilisateur);     
   };
 
 // Retrieve all Utilisateurs from the database.
 exports.findAll = (req, res) => {
     const nom = req.query.nom;
-    var condition = nom ? { nom: { [Op.like]: `%${nom}%` } } : null;
-  
+    
     console.log ("findAll")
 
-    Utilisateur.findAll({ where: condition })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving Utilisateur."
-        });
-      });
+    const uuid = uuidv4 ();
+    const utilisateurs = [{
+      nom: "martin",
+      prenom: "jean",
+      login: "martin",
+      email : "martin.jean@gmail.com",
+      password : "toto",
+      id : uuid
+    }];
+
+    const user = {
+      id: utilisateurs[0].id,
+      name: utilisateurs[0].nom,
+      email: utilisateurs[0].email
+    };
+   
+    const accessToken = generateAccessToken(user);
+          
+    res.setHeader('Authorization', `Bearer ${accessToken}`);
+    res.send(utilisateurs);     
+
   };
 
 // Find a single Utilisateur with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Utilisateur.findByPk(id)
-    .then(data => {
-      if (data) {
-        res.send(data);
-      } else {
-        res.status(404).send({
-          message: `Cannot find Utilisateur with id=${id}.`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error retrieving Utilisateur with id=" + id
-      });
-    });
+  const uuid = uuidv4 ();
+  const utilisateur = {
+    nom: "martin",
+    prenom: "jean",
+    login: "martin",
+    email : "martin.jean@gmail.com",
+    password : "toto",
+    id : uuid
+  };
+
+  const user = {
+    id: utilisateur.id,
+    name: utilisateur.nom,
+    email: utilisateur.email
+  };
+ 
+  const accessToken = generateAccessToken(user);
+        
+  res.setHeader('Authorization', `Bearer ${accessToken}`);
+  res.send(utilisateur);     
 };
 
 // Update a Utilisateur by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Utilisateur.update(req.body, {
-    where: { id: id }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Utilisateur was updated successfully."
-        });
-      } else {
-        res.send({
-          message: `Cannot update Utilisateur with id=${id}. Maybe Utilisateur was not found or req.body is empty!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating Utilisateur with id=" + id
-      });
-    });
+  const utilisateur = {
+    nom: req.body.nom,
+    prenom: req.body.prenom,
+    login: req.body.login,
+    email : req.body.email,
+    password : req.body.password,
+    id : id
+  };
+  const user = {
+    id: utilisateur.id,
+    name: utilisateur.nom,
+    email: utilisateur.email
+  };
+  const accessToken = generateAccessToken(user);
+        
+  res.setHeader('Authorization', `Bearer ${accessToken}`);
+  res.send(utilisateur);     
 };
 
 // Delete a Utilisateur with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Utilisateur.destroy({
-    where: { id: id }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Utilisateur was deleted successfully!"
-        });
-      } else {
-        res.send({
-          message: `Cannot delete Utilisateur with id=${id}. Maybe Utilisateur was not found!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete Utilisateur with id=" + id
-      });
-    });
+  res.send({
+    message: "Utilisateur was deleted successfully!"
+  });
 };
 
 // Delete all Utilisateur from the database.
 exports.deleteAll = (req, res) => {
-  Utilisateur.destroy({
-    where: {},
-    truncate: false
-  })
-    .then(nums => {
-      res.send({ message: `${nums} Utilisateur were deleted successfully!` });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all Utilisateurs."
-      });
-    });
+  res.send({
+    message: "Utilisateur was deleted successfully!"
+  });
 };
 
