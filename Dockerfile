@@ -2,7 +2,7 @@ FROM php:7.4-apache
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
    mv composer.phar /usr/local/bin/composer
@@ -26,9 +26,9 @@ RUN apt-get update && apt-get install -y \
   
 RUN a2enmod rewrite
 
-RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+# RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 
-RUN docker-php-ext-install pdo pdo_pgsql
+# RUN docker-php-ext-install pdo pdo_pgsql
 
 COPY ./deploy/ /var/www/html
 
