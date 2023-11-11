@@ -33,7 +33,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 		 $response->getBody()->write($flux);
 	    }
 
-	    return $response;
+	    return addHeaders($response);
 	}
 
 	// API Nécessitant un Jwt valide
@@ -43,7 +43,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 	    
 	    $response->getBody()->write(json_encode($data));
 	    
-	    return $response;
+	    return addHeaders($response);
 	}
 
 	function optionsUtilisateur (Request $request, Response $response, $args) {
@@ -64,7 +64,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 		$data = array('nom' => 'Martin', 'prenom' => 'Jacques');
 		$response->getBody()->write(json_encode($data));
 
-	    return $response;
+	    return addHeaders($response);
 	}
 
 	// APi d'authentification générant un JWT
@@ -89,7 +89,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 				$response = $response->withStatus(500);
 		}
 
-		return $response;
+		return addHeaders($response);
 	}
 
 
