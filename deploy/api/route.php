@@ -1,12 +1,5 @@
 <?php
-	use Tuupola\Middleware\HttpBasicAuthentication;
-	
-	$app->get('/api/hello/{name}', function (Request $request, Response $response, $args) {
-	    $array = [];
-	    $array ["nom"] = $args ['name'];
-	    $response->getBody()->write(json_encode ($array));
-	    return $response;
-	});
+	$app->get('/api/hello/{name}', 'hello');
 
 	$app->options('/api/catalogue', 'optionsCatalogue' );
 
@@ -28,5 +21,4 @@
 	$app->post('/api/login', 'postLogin');
 
 
-	// Chargement du Middleware
-	$app->add(new Tuupola\Middleware\JwtAuthentication($options));
+	
