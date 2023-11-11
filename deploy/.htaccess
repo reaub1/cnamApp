@@ -8,4 +8,3 @@ RewriteRule ^ /api/index.php [QSA,L]
 Header always set Access-Control-Allow-Origin "*"
 Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
 Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-Header always set Access-Access-Control-Expose-Headers "Authorization"
