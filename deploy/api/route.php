@@ -1,5 +1,6 @@
 <?php
-
+	use Tuupola\Middleware\HttpBasicAuthentication;
+	
 	$app->get('/api/hello/{name}', function (Request $request, Response $response, $args) {
 	    $array = [];
 	    $array ["nom"] = $args ['name'];
@@ -25,3 +26,7 @@
 
 	// APi d'authentification générant un JWT
 	$app->post('/api/login', 'postLogin');
+
+
+	// Chargement du Middleware
+	$app->add(new Tuupola\Middleware\JwtAuthentication($options));
