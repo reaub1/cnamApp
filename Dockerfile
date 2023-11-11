@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y \
     zip \
  && rm -rf /var/lib/apt/lists/*
   
-RUN a2enmod rewrite 
+RUN a2enmod rewrite headers
 
 # RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 
