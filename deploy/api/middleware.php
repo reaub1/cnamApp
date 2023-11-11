@@ -27,11 +27,6 @@
 	    $response = $response->withHeader("Authorization", "Bearer {$token_jwt}");
 	    return $response;
 	}
-
-	// Chargement du Middleware
-	$app->add(new Tuupola\Middleware\JwtAuthentication($options));
-	
-
 	// Middleware de validation du Jwt
 	$options = [
 	    "attribute" => "token",
