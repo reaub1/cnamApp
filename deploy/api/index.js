@@ -4,7 +4,10 @@ const cors = require("cors");
 const app  = express ();
 
 var corsOptions = {
-  origin: "http://localhost:443"
+  origin: "*"
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  headers: 'Content-Type, Authorization',
+  exposedHeaders:'Authorization'
 };
 
 app.use(cors(corsOptions));
