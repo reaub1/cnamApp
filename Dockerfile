@@ -24,6 +24,3 @@ RUN env PATH=$PATH:/usr/local/lib/node_modules/pm2/bin/pm2
 
 # Exposer le port 80 pour permettre les connexions entrantes
 EXPOSE 80
-
-# Définir l'entrée de l'application
-CMD pm2 start ./index.js && apache2-foreground
