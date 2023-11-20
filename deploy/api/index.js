@@ -16,9 +16,9 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+require("./routes/catalogue.routes")(app);   
+require("./routes/utilisateur.routes")(app);
 
-
-require("./routes")(app);
 // set port, listen for requests
 const PORT =  443;
 app.listen(PORT, () => {
