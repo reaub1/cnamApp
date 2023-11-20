@@ -19,8 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-require("./routes/catalogue.routes")(app);
-require("./routes/utilisateur.routes")(app);
+require("./routes")(app);
 
 
 
