@@ -10,8 +10,7 @@ var corsOptions = {
   exposedHeaders:'Authorization'
 };
 
-app.use(cors(corsOptions));
-
+app.use(cors(corsOptions)
 // parse requests of content-type - application/json
 app.use(express.json());
 
@@ -19,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-require("./routes/index.js")(app);
+require("./routes")(app);
 // set port, listen for requests
 const PORT =  443;
 app.listen(PORT, () => {
