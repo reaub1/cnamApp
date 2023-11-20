@@ -19,8 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-require("./routes")(app);
-
+require("./routes/catalogue.routes")(app);
+require("./routes/utilisateur.routes")(app
 
 
 // set port, listen for requests
