@@ -19,10 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-require("./routes/catalogue.routes")(app);
-require("./routes/utilisateur.routes")(app);
-
-
+require("./routes/index.js")(app);
 // set port, listen for requests
 const PORT =  443;
 app.listen(PORT, () => {
