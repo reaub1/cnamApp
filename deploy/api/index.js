@@ -19,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
   
 require("./routes/utilisateur.routes")(app);
 
+require("./routes/catalogue.routes")(app)
+
 // set port, listen for requests
 const PORT =  443;
 app.listen(PORT, () => {
