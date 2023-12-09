@@ -3,8 +3,8 @@ FROM php:7.4-apache
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
-   mv composer.phar /usr/local/bin/composer \
- && apt-get update && apt-get install -y \
+   mv composer.phar /usr/local/bin/composer 
+RUN apt-get update && apt-get install -y \
     curl \
     git \
     libbz2-dev \
