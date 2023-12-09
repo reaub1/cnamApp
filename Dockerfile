@@ -3,8 +3,8 @@ FROM php:7.4-apache
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
-   mv composer.phar /usr/local/bin/composer 
-RUN apt-get update && apt-get install -y \
+   mv composer.phar /usr/local/bin/composer \
+ && apt-get update && apt-get install -y \
     curl \
     git \
     libbz2-dev \
@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
  && rm -rf /var/lib/apt/lists/* \
  && a2enmod rewrite headers \
  && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
- && RUN docker-php-ext-install pdo pdo_pgsql
+ && docker-php-ext-install pdo pdo_pgsql
 
 COPY ./deploy/ /var/www/html
 WORKDIR /var/www/html
