@@ -20,7 +20,7 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
     zip \
  && rm -rf /var/lib/apt/lists/* \
  && a2enmod rewrite headers \
- && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+ && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
  && RUN docker-php-ext-install pdo pdo_pgsql
 
 COPY ./deploy/ /var/www/html
