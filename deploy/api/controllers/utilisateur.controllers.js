@@ -7,6 +7,7 @@ function generateAccessToken(user) {
     return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '1800s' });
   }
 
+//Change here to get the user from the database
 const db = require("../models");
 const Utilisateur = db.utilisateur;
 const Op = db.Sequelize.Op;

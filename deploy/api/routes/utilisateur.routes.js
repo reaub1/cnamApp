@@ -7,7 +7,7 @@ module.exports = app => {
   
 
     // login utilisateur
-    router.post("/login", utilisateur.login);
+    router.post("/login", checkJwt,utilisateur.login);
   
     app.use('/api/utilisateur', router);
   };

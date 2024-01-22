@@ -6,6 +6,10 @@ module.exports = {
     // Get the JWT from the request header.
     const token = req.headers['authorization'];
     let jwtPayload;
+    
+    if (!token) {
+      return res.status(401).send({ message: 'Missing or invalid token' });
+    }
   
     // Validate the token and retrieve its data.
     try {

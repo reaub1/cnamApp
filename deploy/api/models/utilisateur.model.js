@@ -1,44 +1,54 @@
 module.exports = (sequelize, Sequelize) => {
-  const Utilisateur = sequelize.define("utilisateur", {
-
-   id: {
-        type: Sequelize.STRING,
-        primaryKey:true,
+    const Utilisateur = sequelize.define("utilisateur", {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
         allowNull: false
-      },  
-    nom: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    prenom: {
-      type: Sequelize.STRING
-      // allowNull defaults to true
-    },    
-    adresse: {
-        type: Sequelize.STRING,
-    },
-    codepostal: {
-        type: Sequelize.STRING,
-    },
-    ville: {
-        type: Sequelize.STRING,
-    },
-    email: {
-        type: Sequelize.STRING,
-    },
-    sexe: {
-        type: Sequelize.STRING,
-    },
-    login: {
+      },
+      username: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    password: {
+      },
+      email: {
         type: Sequelize.STRING,
-    },
-    telephone: {
+        allowNull: false
+      },
+      role: {
+        type: Sequelize.STRING
+      },
+      password: {
         type: Sequelize.STRING,
-    },
- });
-return Utilisateur;
-};
+        allowNull: false
+      },
+      token: {
+        type: Sequelize.STRING
+      },
+      nom: {
+        type: Sequelize.STRING
+      },
+      prenom: {
+        type: Sequelize.STRING
+      },
+      adresse: {
+        type: Sequelize.STRING
+      },
+      codepostal: {
+        type: Sequelize.STRING
+      },
+      ville: {
+        type: Sequelize.STRING
+      },
+      sexe: {
+        type: Sequelize.STRING
+      },
+      login: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      telephone: {
+        type: Sequelize.STRING
+      }
+    });
+    return Utilisateur;
+  };
+  
