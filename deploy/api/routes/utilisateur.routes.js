@@ -4,9 +4,7 @@ module.exports = app => {
     const utilisateur = require("../controllers/utilisateur.controllers.js");
   
     var router = require("express").Router();
-  
-
-    // login utilisateur
+    
     router.post("/login", checkJwt,utilisateur.login);
   
     app.use('/api/utilisateur', router);

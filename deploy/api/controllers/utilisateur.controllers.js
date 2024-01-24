@@ -7,19 +7,16 @@ function generateAccessToken(user) {
     return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '1800s' });
   }
 
-//Change here to get the user from the database
 const db = require("../models");
 const Utilisateur = db.utilisateur;
 const Op = db.Sequelize.Op;
 
-// Find a single Utilisateur with an login
 exports.login = (req, res) => {
   const utilisateur = {
     login: req.body.login,
     password: req.body.password
   };
 
-  // Test
   let pattern = /^[A-Za-z0-9]{1,20}$/;
   if (pattern.test(utilisateur.login) && pattern.test(utilisateur.password)) {
      Utilisateur.findOne({ where: { login: utilisateur.login } })

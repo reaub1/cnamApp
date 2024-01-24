@@ -1,6 +1,5 @@
 const { Sequelize } = require ("sequelize");
 const { BDD }  = require ('../config');
-//const sequelize = new Sequelize(`postgres://table_3l03_user:SRwluvD9p39Wyo7SsQgCWHQW04rFFtlG@dpg-cm23levqd2ns73d8fs1g-a.frankfurt-postgres.render.com/table_3l03`
 const sequelize = new Sequelize(`postgres://${BDD.user}:${BDD.password}@${BDD.host}/${BDD.bdname}`
 ,{
     dialect: 'postgres',
